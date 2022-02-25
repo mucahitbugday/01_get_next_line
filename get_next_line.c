@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
+#include <stdio.h>
 // join and free
 char	*ft_free(char *buffer, char *buf)
 {
 	char	*temp;
 
-	temp = ft_strjoin(buffer, buf);
+	temp = ft_strjoin(buffer, buf); 
 	free(buffer);
 	return (temp);
 }
@@ -124,4 +124,14 @@ char	*get_next_line(int fd)
 	line = ft_line(buffer);
 	buffer = ft_next(buffer);
 	return (line);
+}
+
+int main()
+{
+	int a = open("metin.txt", O_RDONLY);
+	printf("%s",get_next_line(a));
+	printf("%s",get_next_line(a));
+	printf("%s",get_next_line(a));
+	printf("%s",get_next_line(a));
+	printf("%s",get_next_line(a));
 }
