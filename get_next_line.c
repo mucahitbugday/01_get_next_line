@@ -3,135 +3,160 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/19 11:09:06 by jdecorte          #+#    #+#             */
-/*   Updated: 2021/11/08 23:14:55 by jdecorte         ###   ########.fr       */
+/*   Created: 2021/11/29 20:09:38 by rjaanit           #+#    #+#             */
+/*   Updated: 2022/02/27 03:46:19 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-// join and free
-char	*ft_free(char *buffer, char *buf)
-{
-	char	*temp;
 
-	temp = ft_strjoin(buffer, buf); 
-	free(buffer);
-	return (temp);
+//Okunan dosyanın 1. satırını yeni dizi üretim içerisine yazar 
+char	*ft_ligne(char *str)
+{
+	char	*ptr;
+	int		i;
+
+	i = 0;
+	if (!str[i])
+		return (NULL);
+		
+	// \n görene kadar 1. satırdaki karakterleri sayar
+	while (str[i] && str[i] != '\n')
+		i++;
+	
+	// \n ve NULL icin iki tane fazka yer ayırır.
+	ptr = (char *)malloc(sizeof(char) * (i + 2));
+	
+	if (!ptr)
+		return (NULL);
+	
+	i = 0;
+	
+	//yeni oluşturulan dizinin 0. indisinden itibaren içerisine yazmaya başlar
+	while (str[i] && str[i] != '\n')
+	{
+		ptr[i] = str[i];
+		i++;
+	}
+	
+	// 1. satırın son elemanına geldiyse girer ve sonuna \n koyar
+	if (str[i] == '\n')
+	{
+		ptr[i] = str[i];
+		i++;
+	}
+	
+	//dizinin sonun NULL koyar
+	ptr[i] = '\0';
+	
+	//1. satırı geri döner
+	return (ptr);
 }
 
-// delete line find
-char	*ft_next(char *buffer)
+//bir sonraki kelimeye gecer.
+char	*ft_next(char *str)
 {
+	char	*ptr;
 	int		i;
 	int		j;
-	char	*line;
 
 	i = 0;
-	// find len of first line
-	while (buffer[i] && buffer[i] != '\n')
+	j = 0;
+	// satırdaki dizinin eleman sayısını sayar
+	while (str[i] && str[i] != '\n')
 		i++;
-	// if eol == \0 return NULL
-	if (!buffer[i])
+		
+	if (!str[i])
 	{
-		free(buffer);
+		free (str);
 		return (NULL);
 	}
-	// len of file - len of firstline + 1
-	line = ft_calloc((ft_strlen(buffer) - i + 1), sizeof(char));
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
+	if (!ptr)
+		return (NULL);
 	i++;
-	j = 0;
-	// line == buffer
-	while (buffer[i])
-		line[j++] = buffer[i++];
-	free(buffer);
-	return (line);
+
+	//1. satırın boyutundan itibaren yenidiziye atar.
+	//dizi 3 elenanlı ise 4. elemndan itibaren yeni diziye atar
+	while (str[i])
+	{
+		ptr[j++] = str[i++];
+	}
+	ptr[j] = '\0';
+	free(str);
+	return (ptr);
 }
 
-// take line for return
-char	*ft_line(char *buffer)
+
+//dosya oku
+//dosyadaki okudugu karakterleri geri döner
+char	*ft_readfile(char *str, int fd)
+{
+	char	*buff;
+	int		lire;
+
+	lire = 1;
+	
+	//fd dosyasından okunan karakterler için yer aç
+	buff = malloc(BUFFER_SIZE + 1);
+	
+	if (!buff)
+		return (NULL);
+		
+	while (!ft_strchr(str, '\n') && lire != 0)
+	{
+		lire = read(fd, buff, BUFFER_SIZE);
+		if (lire == -1)
+		{
+			free (buff);
+			return (NULL);
+		}
+		buff[lire] = '\0';
+		str = ft_strjoin(str, buff);
+	}
+	free (buff);
+	return (str);
+}
+
+
+//Ana fonksiyon
+char	*get_next_line(int fd)
+{
+	char		*ligne;
+	static char	*str;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	str = ft_readfile(str, fd);
+	if (!str)
+		return (NULL);
+	ligne = ft_ligne(str);
+	str = ft_next(str);
+	return (ligne);
+}
+/*
+#include <stdio.h>
+#include <fcntl.h>
+int	main(void)
 {
 	char	*line;
 	int		i;
+	int		fd1;
 
-	i = 0;
-	// if no line return NULL
-	if (!buffer[i])
-		return (NULL);
-	// go to the eol
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	// malloc to eol
-	line = ft_calloc(i + 2, sizeof(char));
-	i = 0;
-	// line = buffer
-	while (buffer[i] && buffer[i] != '\n')
+	fd1 = open("metin.txt", O_RDONLY);
+
+	i = 1;
+	while (i <= 5)
 	{
-		line[i] = buffer[i];
+		line = get_next_line(fd1);
+		printf("line [%02d]: %s", i, line);
+		free(line);
 		i++;
 	}
-	// if eol is \0 or \n, replace eol by \n
-	if (buffer[i] && buffer[i] == '\n')
-		line[i++] = '\n';
-	return (line);
+	close(fd1);
+
+	return (0);
 }
-
-char	*read_file(int fd, char *res)
-{
-	char	*buffer;
-	int		byte_read;
-
-	// malloc if res dont exist
-	if (!res)
-		res = ft_calloc(1, 1);
-	// malloc buffer
-	buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	byte_read = 1;
-	while (byte_read > 0)
-	{
-		// while not eof read
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		// 0 to end for leak
-		buffer[byte_read] = 0;
-		// join and free
-		res = ft_free(res, buffer);
-		// quit if \n find
-		if (ft_strchr(buffer, '\n'))
-			break ;
-	}
-	free(buffer);
-	return (res);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*buffer;
-	char		*line;
-
-	// error handling
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
-	buffer = read_file(fd, buffer);
-	if (!buffer)
-		return (NULL);
-	line = ft_line(buffer);
-	buffer = ft_next(buffer);
-	return (line);
-}
-
-int main()
-{
-	int a = open("metin.txt", O_RDONLY);
-	printf("%s",get_next_line(a));
-	printf("%s",get_next_line(a));
-	printf("%s",get_next_line(a));
-	printf("%s",get_next_line(a));
-	printf("%s",get_next_line(a));
-}
+*/

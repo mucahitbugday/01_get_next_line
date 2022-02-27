@@ -1,3 +1,4 @@
-Bu proje sadece çok kullanışlı bir fonksiyonun koleksiyonunuza eklemenize yardımcı ol-
-mayacak aynı zamanda size C programlamada çok dikkat çekici ve yeni bir konsept olan
-“static variables” i öğrenme fırsatı verecektir.
+mücahit
+buğday
+ali
+veli
