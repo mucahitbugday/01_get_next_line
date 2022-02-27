@@ -1,4 +1,5 @@
-mücahit
-buğday
-ali
-veli
+Çalışmalarınız atanmış olan git repolarına yüklemeniz gerekmektedir. Sadece git 
+reposu içerisindeki çalışmalar notlandırılacaktır. Eğer Deepthought sizin çalışmanızı
+değerlendirmek için atanmışsa, bu değerlendirmeyi arkadaşlarınızın sizin projenizi
+değerlendirmesinden sonra gerçekleştirecektir. Eğer Deepthought değerlendirme
+sürecinde herhangi bir hata ile karşılaşılırsa değerlendirme durdurulacaktır.
