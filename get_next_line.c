@@ -6,12 +6,13 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 20:09:38 by rjaanit           #+#    #+#             */
-/*   Updated: 2022/02/27 13:10:44 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/02/28 15:44:33 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
 /////////////////////////////////////////////////////////////
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -80,6 +81,8 @@ size_t	ft_strlen(char *str)
 }
 
 /////////////////////////////////////////////////////////////
+*/
+
 
 //Okunan dosyanın 1. satırını yeni dizi üretim içerisine yazar 
 char	*ft_ligne(char *str)
@@ -214,9 +217,10 @@ char	*get_next_line(int fd)
 	return (ligne);
 }
 
+
 #include <stdio.h>
 #include <fcntl.h>
-int	main(void)
+int	main2(void)
 {
 	char	*line;
 	int		i;
@@ -225,7 +229,7 @@ int	main(void)
 	fd1 = open("metin.txt", O_RDONLY);
 
 	i = 1;
-	while (i <= 5)
+	while (i <= 3)
 	{
 		line = get_next_line(fd1);
 		printf("line [%02d]: %s", i, line);
