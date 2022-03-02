@@ -6,7 +6,7 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 18:42:20 by mbugday           #+#    #+#             */
-/*   Updated: 2022/02/28 15:46:18 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/03/02 04:21:09 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		ptr[i++] = s2[j++];
 	ptr[i] = '\0';
-	s1 = NULL;
-	//free (s1);
+	free (s1);
 	return (ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:39:05 by mbugday           #+#    #+#             */
-/*   Updated: 2022/02/27 13:17:20 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/03/02 04:27:14 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 1000
 # endif
 
 # include<unistd.h>

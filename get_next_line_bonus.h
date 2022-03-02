@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jdecorte <jdecorte@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 11:15:27 by jdecorte          #+#    #+#             */
-/*   Updated: 2021/10/19 12:01:01 by jdecorte         ###   ########.fr       */
+/*   Updated: 2022/03/02 04:28:14 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1000
+#  define BUFFER_SIZE 1000
 # endif
 
 # ifndef OPEN_MAX
-# define OPEN_MAX 1000
+#  define OPEN_MAX 1000
 # endif
 
 char	*get_next_line(int fd);
