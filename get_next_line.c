@@ -6,13 +6,13 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 20:09:38 by rjaanit           #+#    #+#             */
-/*   Updated: 2022/03/02 04:19:43 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/03/02 04:35:15 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_ligne(char *str)
+char	*ft_line(char *str)
 {
 	char	*ptr;
 	int		i;
@@ -40,7 +40,7 @@ char	*ft_ligne(char *str)
 	return (ptr);
 }
 
-char	*ft_next(char *str)
+char	*ft_next_line(char *str)
 {
 	char	*ptr;
 	int		i;
@@ -71,21 +71,21 @@ char	*ft_next(char *str)
 char	*ft_readfile(char *str, int fd)
 {
 	char	*buff;
-	int		lire;
+	int		line;
 
-	lire = 1;
+	line = 1;
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
-	while (ft_strchr(str, '\n') == NULL && lire != 0)
+	while (ft_strchr(str, '\n') == NULL && line != 0)
 	{
-		lire = read(fd, buff, BUFFER_SIZE);
-		if (lire == -1)
+		line = read(fd, buff, BUFFER_SIZE);
+		if (line == -1)
 		{
 			free (buff);
 			return (NULL);
 		}
-		buff[lire] = '\0';
+		buff[line] = '\0';
 		str = ft_strjoin(str, buff);
 	}
 	free (buff);
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 	str = ft_readfile(str, fd);
 	if (!str)
 		return (NULL);
-	ligne = ft_ligne(str);
-	str = ft_next(str);
+	ligne = ft_line(str);
+	str = ft_next_line(str);
 	return (ligne);
 }
