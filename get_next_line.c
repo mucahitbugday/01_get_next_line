@@ -6,11 +6,13 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:45:08 by mbugday           #+#    #+#             */
-/*   Updated: 2022/03/04 00:28:20 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/03/04 01:15:53 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+#include <fcntl.h>
 
 char	*ft_line_new(char *str)
 {
@@ -105,4 +107,12 @@ char	*get_next_line(int fd)
 	line = ft_line_new(str);
 	str = ft_next_line(str);
 	return (line);
+}
+
+int	main(void)
+{
+	int	fd;
+
+	fd = open("metin0.txt", 0);
+	printf("%s", get_next_line(fd));
 }
