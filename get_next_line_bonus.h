@@ -6,34 +6,25 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:45:54 by mbugday           #+#    #+#             */
-/*   Updated: 2022/03/03 12:45:56 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/03/04 00:20:55 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
-# include <limits.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1000
 # endif
 
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1000
-# endif
+# include<unistd.h>
+# include<stdlib.h>
 
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr( char *s, int c);
+size_t	ft_strlen(char *str);
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *string, int searchedChar);
-
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t elementCount, size_t elementSize);
-
-size_t	ft_strlen(const char *theString);
-
+char	*ft_readfile(char *str, int fd);
+char	*ft__next(char *str);
+char	*ft_ligne(char *str);
 #endif

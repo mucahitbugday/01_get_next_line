@@ -6,13 +6,13 @@
 /*   By: mbugday <mbugday@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 12:45:08 by mbugday           #+#    #+#             */
-/*   Updated: 2022/03/03 13:05:21 by mbugday          ###   ########.fr       */
+/*   Updated: 2022/03/04 00:17:37 by mbugday          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_line(char *str)
+char	*ft_line_new(char *str)
 {
 	char	*ptr;
 	int		i;
@@ -77,7 +77,7 @@ char	*ft_readfile(char *str, int fd)
 	buff = malloc(BUFFER_SIZE + 1);
 	if (!buff)
 		return (NULL);
-	while (ft_strchr(str, '\n') == NULL && line != 0)
+	while (!ft_strchr(str, '\n') && line != 0)
 	{
 		line = read(fd, buff, BUFFER_SIZE);
 		if (line == -1)
@@ -94,7 +94,7 @@ char	*ft_readfile(char *str, int fd)
 
 char	*get_next_line(int fd)
 {
-	char		*ligne;
+	char		*line;
 	static char	*str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 	str = ft_readfile(str, fd);
 	if (!str)
 		return (NULL);
-	ligne = ft_line(str);
+	line = ft_line_new(str);
 	str = ft_next_line(str);
-	return (ligne);
+	return (line);
 }
