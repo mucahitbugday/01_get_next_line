@@ -21,6 +21,7 @@ char	*fr_free(char *buffer, char *buf)
 	return (temp);
 }
 
+///
 char	*ft_next(char *buffer)
 {
 	int		i;
